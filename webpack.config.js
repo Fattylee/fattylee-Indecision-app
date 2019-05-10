@@ -24,7 +24,6 @@ module.exports = {
           'css-loader',
           'less-loader'
         ],
-        exclude: /node_modules/
       }
     ]
   },
@@ -32,7 +31,7 @@ module.exports = {
   devServer: {
     contentBase: outputPath,
     compress: true,
-    port: 9000,
+    port: 7000,
   },
   plugins: [ 
     new MiniCssExtractPlugin()

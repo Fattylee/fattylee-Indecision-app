@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './styles/base/normalize.css';
+import 'normalize.css';
 import './styles/style.less';
 
 

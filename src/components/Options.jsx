@@ -7,7 +7,7 @@ const Options = ({ options, handleRemoveAll, handleDeleteOption }) => {
         <div className='widget-header'>
           <h3>Your options</h3>
           <button 
-          className='button--link' 
+          className='button--link norm' 
           disabled={options.length === 0} 
           onClick={handleRemoveAll}
           >

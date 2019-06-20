@@ -6,7 +6,7 @@ export default Option = ({ optionText, index, handleDeleteOption }) => {
       <p>{`${index}. ${optionText}`}</p>
       <button className='button--link' onClick={(e) => {
         handleDeleteOption(optionText);
-      }}>remove</button>
+      }}>X</button>
     </li>
   );
 };

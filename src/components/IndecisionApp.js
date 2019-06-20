@@ -1,11 +1,12 @@
-import React from 'react';
-import ReactModal from 'react-modal';
+import React, { Fragment } from 'react';
+//import ReactModal from 'react-modal';
 
 import Header from './Header';
 import Action from './Action';
 import Options from './Options.jsx';
 import AddOption from './AddOption';
 import OptionModal from './OptionModal';
+import CustomModal from './CustomModal';
 
 
 class IndecisionApp extends React.Component {
@@ -13,6 +14,8 @@ class IndecisionApp extends React.Component {
       options: this.props.options,
       error: undefined,
       selectedOption: undefined,
+      isActiveModal: false,
+      isMod: false,
     };
   handleSubmit = (e) => {
     e.preventDefault();
@@ -37,13 +40,19 @@ class IndecisionApp extends React.Component {
   };
   
   handleRemoveAll = (e) => {
-    this.setState(prevState => ({ options: [], error: undefined }));
+    
+    this.setState(prevState => ({ isActiveModal: true })); 
   };
   makeDecision = () => {
     const randomNum = Math.floor(Math.random() * this.state.options.length);
     if(this.state.options.length) {
       const option = this.state.options[randomNum];
-      this.setState(() => ({ selectedOption: option, error: undefined }))
+      
+      this.setState(prevState => ({ 
+      isMod: true,
+      selectedOption: option,
+      error: undefined,
+      })); 
     }
   };
   handleDeleteOption = (optionToRemove) => {
@@ -55,6 +64,19 @@ class IndecisionApp extends React.Component {
   handleSelectedOption = () => {
     this.setState(() => ({selectedOption: undefined}))
   };
+  no = () => {
+    this.setState(() => ({isActiveModal: false}))
+  }
+  okay = () => {
+    this.setState(() => ({isMod: false}))
+  }
+  yes = () => {
+    this.setState(() => ({
+      isActiveModal: false,
+      options: [], 
+      error: undefined,
+      }));
+  }
   componentDidMount() {
     try {
       const options = JSON.parse(localStorage.getItem('options'));
@@ -77,11 +99,23 @@ class IndecisionApp extends React.Component {
     const subTitle = 'Put your life in the hands of a computer';
     
     return (
-      <div>
+      <Fragment>
+        { this.state.isActiveModal && (<CustomModal 
+        no={this.no}
+        yes={this.yes}
+        />) }
+        
+        {this.state.isMod && <OptionModal 
+        okay={this.okay}
+        selectedOption={this.state.selectedOption}
+        handleSelectedOption={this.handleSelectedOption}
+         />}
+         
         <Header
           subTitle = {subTitle}
         />
         <div className='container'>
+        
           <Action 
           optionLength = 
           {this.state.options.length}
@@ -93,24 +127,25 @@ class IndecisionApp extends React.Component {
               handleRemoveAll = {this.handleRemoveAll}
               handleDeleteOption = {this.handleDeleteOption} 
             />
-            <AddOption 
+            
+          </div>
+        </div>
+        <AddOption 
               handleSubmit = {this.handleSubmit}
               error = {this.state.error}
               options = {this.state.options}
             />
-          </div>
-        </div>
-        <OptionModal selectedOption={this.state.selectedOption}
-        handleSelectedOption={this.handleSelectedOption}
-        
-         />
-      </div>
+      </Fragment>
     );
   }
 };
 
 IndecisionApp.defaultProps = {
-  options: [],
+  options: [
+    'Recite the book of Allaah',
+    'Keep coding',
+    'Visit a shopping mall'
+  ],
 };
 
 export default IndecisionApp;

@@ -1,18 +1,5 @@
 import React from 'react';
 
-const OptionModaltyyy = (props) => (
-  <Modal
-  ariaHideApp={false}
-  onRequestClose={props.handleSelectedOption}
-  isOpen={!!props.selectedOption}
-  contentLabel="Selected option"
-  >
-    <h3>Selected option</h3>
-    <p>{props.selectedOption}</p>
-    <button onClick={props.handleSelectedOption}>Okay</button>
-  </Modal>
-);
-
 
 const OptionModal = ({ okay, selectedOption }) => {
   return (
@@ -29,3 +16,4 @@ const OptionModal = ({ okay, selectedOption }) => {
   );
 };
 export default OptionModal;
+

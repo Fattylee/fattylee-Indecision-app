@@ -9,7 +9,7 @@
     "build-babel": "babel src/app.js --out-file public/app.js --presets env,react --watch",
     "serve": "live-server public",
     "dev": "webpack-dev-server",
-    "webpack": "webpack"
+    "deploy": "gh-pages -d public"
   },
   "dependencies": {
     "live-server": "1.2.1",
@@ -35,7 +35,7 @@
     "material-icons": "0.3.1"
   },
   "devDependencies": {
-    
+    "gh-pages": "2.0.1"
   },
   "keywords": ["react", "todo", "javascript"],
   "author": "Fatai Balogun",
